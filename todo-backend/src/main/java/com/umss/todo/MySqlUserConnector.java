@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("mysql")
 public class MySqlUserConnector implements SqlConnector {
 	
 	private String mysqlConnectionString = "jdbc:mysql://127.0.0.1:3306/tododb";

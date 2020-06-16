@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("oracle")
 public class OracleUserConnector implements SqlConnector {
 
 	@Override
