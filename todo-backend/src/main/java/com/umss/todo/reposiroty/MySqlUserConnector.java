@@ -1,4 +1,4 @@
-package com.umss.todo;
+package com.umss.todo.reposiroty;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component("mysql")
+import com.umss.todo.User;
+
+@Repository("mysql")
 public class MySqlUserConnector implements SqlConnector {
 	
 	private String mysqlConnectionString = "jdbc:mysql://127.0.0.1:3306/tododb";
@@ -31,7 +34,7 @@ public class MySqlUserConnector implements SqlConnector {
 			// 2. Create a statement
 			statement = connection.createStatement();
 			// 3. Execute the SQL query
-			String selectAllUsersQuery = "SELECT * FROM users";
+			String selectAllUsersQuery = SqlConnector.SELECT_ALL_USERS;
 			resultSet = statement.executeQuery(selectAllUsersQuery);
 			// 4. Process the result
 			while (resultSet.next()) {

@@ -1,6 +1,8 @@
-package com.umss.todo;
+package com.umss.todo.reposiroty;
 
 import java.util.List;
+
+import com.umss.todo.User;
 
 /**
  * clase abstracta.
@@ -20,7 +22,7 @@ import java.util.List;
 public interface SqlConnector {
 
 	// Attibutes
-	String SELECT_ALL_USERS = "SELECT * FROM users";
+	String SELECT_ALL_USERS = "SELECT * FROM tododb.users";
 	
 	// Methods
 	List<User> getAllUsers();

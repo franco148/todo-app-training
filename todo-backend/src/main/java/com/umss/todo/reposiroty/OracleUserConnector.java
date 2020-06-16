@@ -1,11 +1,13 @@
-package com.umss.todo;
+package com.umss.todo.reposiroty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component("oracle")
+import com.umss.todo.User;
+
+@Repository("oracle")
 public class OracleUserConnector implements SqlConnector {
 
 	@Override
@@ -17,5 +19,4 @@ public class OracleUserConnector implements SqlConnector {
 		System.out.println("Obtaining results from Oracle Database");
 		return new ArrayList<User>();
 	}
-
 }
