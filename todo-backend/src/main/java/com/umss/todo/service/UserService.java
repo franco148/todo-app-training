@@ -20,6 +20,12 @@ public class UserService {
 		this.sqlConnector = sqlConnector;
 	}
 	
+//	@Autowired
+//	public UserService(SqlConnector sqlConnector) {
+////		this.sqlConnector = sqlConnector;
+//	}
+	
+	
 	public List<User> getAllUsers() {
 		return sqlConnector.getAllUsers();
 	}
