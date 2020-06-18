@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
     .subscribe(response => {
       this.usersCollection = response;
       console.log(this.usersCollection);
+      // for (const user in this.usersCollection) {
+      //   console.log(user.email);
+      // }
     });
   }
 }
