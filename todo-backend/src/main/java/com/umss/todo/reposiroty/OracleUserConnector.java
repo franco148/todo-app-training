@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.umss.todo.User;
+import com.umss.todo.reposiroty.model.User;
 
 @Repository("oracle")
 public class OracleUserConnector implements SqlConnector {

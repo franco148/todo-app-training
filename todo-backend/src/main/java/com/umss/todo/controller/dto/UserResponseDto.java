@@ -1,12 +1,11 @@
-package com.umss.todo;
+package com.umss.todo.controller.dto;
 
-public class User {
+public class UserResponseDto {
+
 	private Long id;
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
-	
 	
 	
 	public Long getId() {
@@ -33,12 +32,4 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	
 }

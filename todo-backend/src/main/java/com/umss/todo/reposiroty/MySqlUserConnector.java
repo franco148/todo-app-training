@@ -8,10 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import com.umss.todo.User;
+import com.umss.todo.reposiroty.model.User;
 
 @Repository("mysql")
 public class MySqlUserConnector implements SqlConnector {
@@ -42,7 +41,7 @@ public class MySqlUserConnector implements SqlConnector {
 				user.setId(resultSet.getLong("id"));
 				user.setFirstName(resultSet.getString("first_name"));
 				user.setLastName(resultSet.getString("last_name"));
-				user.setEmail(resultSet.getString("email"));
+				user.setAccount(resultSet.getString("email"));
 				user.setPassword(resultSet.getString("password"));
 				
 				listUsersResponse.add(user);

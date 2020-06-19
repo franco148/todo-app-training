@@ -2,7 +2,7 @@ package com.umss.todo.reposiroty;
 
 import java.util.List;
 
-import com.umss.todo.User;
+import com.umss.todo.reposiroty.model.User;
 
 /**
  * clase abstracta.
