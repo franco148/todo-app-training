@@ -4,7 +4,7 @@ public class User {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String account;
+	private String email;
 	private String password;
 	
 	
@@ -27,11 +27,11 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getAccount() {
-		return account;
+	public String getEmail() {
+		return email;
 	}
-	public void setAccount(String email) {
-		this.account = email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPassword() {
 		return password;
