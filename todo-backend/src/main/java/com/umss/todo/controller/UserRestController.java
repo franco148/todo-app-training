@@ -3,15 +3,14 @@ package com.umss.todo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.umss.todo.controller.dto.UserCredentialsDto;
 import com.umss.todo.controller.dto.UserResponseDto;
-import com.umss.todo.reposiroty.SqlConnector;
-import com.umss.todo.reposiroty.model.User;
 import com.umss.todo.service.UserService;
 
 @CrossOrigin
@@ -34,4 +33,15 @@ public class UserRestController {
 	public List<UserResponseDto> getAllSystemUsers() {
 		return userService.getAllUsers();
 	}
+	
+	// http://localhost:8080/users
+	@PostMapping
+	public UserResponseDto registerUser(UserCredentialsDto credentials) {
+		
+		return null;
+	}
+	
+	//PUT
+	
+	//DELETE
 }
