@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.umss.todo.reposiroty.model.User;
 
 @Repository
-public class UserRepository { //extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }
