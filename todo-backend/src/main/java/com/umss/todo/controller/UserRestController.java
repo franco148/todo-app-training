@@ -2,6 +2,8 @@ package com.umss.todo.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,7 @@ public class UserRestController {
 	
 	// http://localhost:8080/users
 	@PostMapping
-	public UserResponseDto registerUser(@RequestBody UserCredentialsDto credentials) {		
+	public UserResponseDto registerUser(@Valid @RequestBody UserCredentialsDto credentials) {		
 		return userService.registerUser(credentials);
 	}
 	

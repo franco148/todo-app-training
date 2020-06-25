@@ -3,8 +3,8 @@ package com.umss.todo.reposiroty.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -12,7 +12,8 @@ import javax.persistence.Table;
 public class User { 
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "todoSequenceGenerator", sequenceName = "todoSeqGen", initialValue = 6)
+	@GeneratedValue(generator = "todoSequenceGenerator")
 	private Long id;
 	@Column(length = 20)
 	private String firstName;
