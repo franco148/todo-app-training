@@ -49,7 +49,18 @@ public class UserService {
 		return userCollectionResponse;
 	}
 	
-	public UserCredentialsDto registerUser(UserCredentialsDto credentials) {
-		return null;
+	public UserResponseDto registerUser(UserCredentialsDto credentials) {
+		User userToPersist = new User();
+		userToPersist.setEmail(credentials.getEmail());
+		userToPersist.setPassword(credentials.getPassword());
+		
+		User persistedUser = userRepository.save(userToPersist);
+		UserResponseDto userDto = new UserResponseDto();
+		userDto.setId(persistedUser.getId());
+		userDto.setFirstName(persistedUser.getFirstName());
+		userDto.setLastName(persistedUser.getLastName());
+		userDto.setEmail(persistedUser.getEmail());
+		
+		return userDto;
 	}
 }
