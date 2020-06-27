@@ -42,8 +42,4 @@ public class UserRestController {
 	public UserResponseDto registerUser(@Valid @RequestBody UserCredentialsDto credentials) {		
 		return userService.registerUser(credentials);
 	}
-	
-	//PUT
-	
-	//DELETE
 }
