@@ -1,10 +1,27 @@
 package com.umss.todo.reposiroty.model;
 
-public class User {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
+public class User { 
+	
+	@Id
+	@SequenceGenerator(name = "todoSequenceGenerator", sequenceName = "todoSeqGen", initialValue = 6)
+	@GeneratedValue(generator = "todoSequenceGenerator")
 	private Long id;
+	@Column(length = 20)
 	private String firstName;
+	@Column(length = 50)
 	private String lastName;
-	private String account;
+	@Column(nullable = false, unique = true, length = 50)
+	private String email;
+	@Column(nullable = false, length = 200)
 	private String password;
 	
 	
@@ -27,11 +44,11 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getAccount() {
-		return account;
+	public String getEmail() {
+		return email;
 	}
-	public void setAccount(String email) {
-		this.account = email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPassword() {
 		return password;
