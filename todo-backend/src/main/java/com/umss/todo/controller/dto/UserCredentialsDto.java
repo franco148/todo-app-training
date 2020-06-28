@@ -1,14 +1,14 @@
 package com.umss.todo.controller.dto;
 
-import javax.validation.constraints.Email;
+import com.umss.todo.validation.Email;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserCredentialsDto {
 	
 	@NotBlank(message = "Email field should not be null or empty.")
-	@Email(message = "Email field should be a valid email address.")
-//	@MyEmailValidator(message = "")
+	@Email(types = {"gmail", "hotmail", "umss"}, domains = {"com", "es", "edu.bo"})
 	private String email;
 	@Size
 	(
