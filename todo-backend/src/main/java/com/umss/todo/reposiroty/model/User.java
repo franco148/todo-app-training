@@ -1,9 +1,14 @@
 package com.umss.todo.reposiroty.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,6 +28,9 @@ public class User {
 	private String email;
 	@Column(nullable = false, length = 200)
 	private String password;
+	@OneToMany
+	@JoinColumn(name = "fk_user", nullable = false)
+	private Set<Task> tasks = new HashSet<>();
 	
 	
 	
