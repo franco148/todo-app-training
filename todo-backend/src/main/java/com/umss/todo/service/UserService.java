@@ -82,6 +82,7 @@ public class UserService {
 		}
 		
 		Task taskToAdd = modelMapper.map(taskDto, Task.class);
+		taskToAdd.setUser(userRepository.getOne(userId));
 		Task savedTask = taskRepository.save(taskToAdd);
 		return modelMapper.map(savedTask, TaskResponseDto.class);
 	}
