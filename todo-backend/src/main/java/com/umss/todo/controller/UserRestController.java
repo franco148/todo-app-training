@@ -65,7 +65,12 @@ public class UserRestController {
 	@PostMapping("{userId}/task")
 	public TaskResponseDto addTask(@PathVariable("userId") Long userId,
 								   @Valid @RequestBody TaskRequestDto taskDto) {
-		return null;
+		try {
+			return userService.addTask(userId, taskDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	

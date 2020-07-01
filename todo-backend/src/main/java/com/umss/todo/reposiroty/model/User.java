@@ -28,8 +28,7 @@ public class User {
 	private String email;
 	@Column(nullable = false, length = 200)
 	private String password;
-	@OneToMany
-	@JoinColumn(name = "fk_user", nullable = false)
+	@OneToMany(mappedBy = "user")
 	private Set<Task> tasks = new HashSet<>();
 	
 	
