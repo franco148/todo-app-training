@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.umss.todo.common.dto.request.UserCredentialsDto;
 import com.umss.todo.common.dto.request.UserRequestDto;
 import com.umss.todo.common.dto.response.UserResponseDto;
-import com.umss.todo.reposiroty.UserRepository;
-import com.umss.todo.reposiroty.model.User;
+import com.umss.todo.persistence.domain.User;
+import com.umss.todo.persistence.repository.UserRepository;
 
 @Service
 public class UserService {

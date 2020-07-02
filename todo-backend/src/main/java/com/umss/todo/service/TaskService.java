@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.umss.todo.common.dto.request.TaskRequestDto;
 import com.umss.todo.common.dto.response.TaskResponseDto;
-import com.umss.todo.reposiroty.TaskRepository;
-import com.umss.todo.reposiroty.UserRepository;
-import com.umss.todo.reposiroty.model.Priority;
-import com.umss.todo.reposiroty.model.State;
-import com.umss.todo.reposiroty.model.Task;
-import com.umss.todo.reposiroty.model.User;
+import com.umss.todo.persistence.domain.Priority;
+import com.umss.todo.persistence.domain.State;
+import com.umss.todo.persistence.domain.Task;
+import com.umss.todo.persistence.domain.User;
+import com.umss.todo.persistence.repository.TaskRepository;
+import com.umss.todo.persistence.repository.UserRepository;
 
 @Service
 public class TaskService {

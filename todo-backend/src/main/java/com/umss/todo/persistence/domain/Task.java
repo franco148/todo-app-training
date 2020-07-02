@@ -1,4 +1,4 @@
-package com.umss.todo.reposiroty.model;
+package com.umss.todo.persistence.domain;
 
 import java.time.LocalDateTime;
 

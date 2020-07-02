@@ -1,4 +1,4 @@
-package com.umss.todo.reposiroty.model;
+package com.umss.todo.persistence.domain;
 
 public enum Priority {
 
