@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,10 +25,12 @@ public class Task {
 	private LocalDateTime endTime;
 	private Long duration;
 	private boolean isDeleted;
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private String state;
+	private State state;
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private String priority;
+	private Priority priority;
 	private LocalDateTime createdAt;
 	
 	
@@ -72,16 +76,16 @@ public class Task {
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	public String getState() {
+	public State getState() {
 		return state;
 	}
-	public void setState(String state) {
+	public void setState(State state) {
 		this.state = state;
 	}
-	public String getPriority() {
+	public Priority getPriority() {
 		return priority;
 	}
-	public void setPriority(String priority) {
+	public void setPriority(Priority priority) {
 		this.priority = priority;
 	}
 	public LocalDateTime getCreatedAt() {

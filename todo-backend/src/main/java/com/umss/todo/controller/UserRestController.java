@@ -19,6 +19,7 @@ import com.umss.todo.controller.dto.TaskResponseDto;
 import com.umss.todo.controller.dto.UserCredentialsDto;
 import com.umss.todo.controller.dto.UserRequestDto;
 import com.umss.todo.controller.dto.UserResponseDto;
+import com.umss.todo.service.TaskService;
 import com.umss.todo.service.UserService;
 
 @CrossOrigin
@@ -28,11 +29,14 @@ public class UserRestController {
 	
 	// FEATURE: backend-GetAllUsersOfTheSystem	
 	private UserService userService;
+	private TaskService taskService;
 	
 	
 	@Autowired
-	public UserRestController(UserService userService) {
+	public UserRestController(UserService userService,
+							  TaskService taskService) {
 		this.userService = userService;
+		this.taskService = taskService;
 	}
 	
 	
@@ -65,7 +69,13 @@ public class UserRestController {
 	@PostMapping("{userId}/task")
 	public TaskResponseDto addTask(@PathVariable("userId") Long userId,
 								   @Valid @RequestBody TaskRequestDto taskDto) {
-		return null;
+		try {
+			return taskService.addTask(userId, taskDto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	

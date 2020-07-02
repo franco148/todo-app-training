@@ -20,24 +20,17 @@ import com.umss.todo.reposiroty.model.User;
 @Service
 public class UserService {
 
-	private UserRepository userRepository;
-	private TaskRepository taskRepository;
+	private UserRepository userRepository;	
 	private ModelMapper modelMapper;
 	
 	
 	@Autowired
 	public UserService(UserRepository userRepository,
-					   TaskRepository taskRepository,
 					   ModelMapper modelMapper) {
 		this.userRepository = userRepository;
-		this.taskRepository = taskRepository;
 		this.modelMapper = modelMapper;
 	}
 	
-//	@Autowired
-//	public UserService(SqlConnector sqlConnector) {
-////		this.sqlConnector = sqlConnector;
-//	}
 	
 	
 	public List<UserResponseDto> getAllUsers() {
@@ -76,13 +69,5 @@ public class UserService {
 		return updatedDto;
 	}
 	
-	public TaskResponseDto addTask(Long userId, TaskRequestDto taskDto) throws Exception {
-		if (!userRepository.existsById(userId)) {
-			throw new Exception("User with ID=" + userId + " does not exist.");
-		}
-		
-		Task taskToAdd = modelMapper.map(taskDto, Task.class);
-		Task savedTask = taskRepository.save(taskToAdd);
-		return modelMapper.map(savedTask, TaskResponseDto.class);
-	}
+	
 }

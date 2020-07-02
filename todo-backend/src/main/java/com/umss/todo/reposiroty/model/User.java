@@ -3,6 +3,7 @@ package com.umss.todo.reposiroty.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class User {
 	private String email;
 	@Column(nullable = false, length = 200)
 	private String password;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_user", nullable = false)
 	private Set<Task> tasks = new HashSet<>();
 	
@@ -64,6 +65,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+	public Set<Task> getTasks() {
+		return tasks;
+	}
+	public void setTasks(Set<Task> tasks) {
+		this.tasks = tasks;
+	}	
+	public void addTask(Task task) {
+		this.tasks.add(task);
+	}
 }

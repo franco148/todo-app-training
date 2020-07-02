@@ -14,7 +14,7 @@ public class TaskRequestDto {
 	private String title;
 	private String description;
 	private LocalDateTime startTime;
-	private LocalDateTime endTime;
+	private LocalDateTime endTime;	
 	private String state;
 	private String priority;
 	
