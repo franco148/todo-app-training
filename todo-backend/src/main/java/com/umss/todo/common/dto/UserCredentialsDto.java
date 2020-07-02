@@ -1,9 +1,9 @@
-package com.umss.todo.controller.dto;
-
-import com.umss.todo.validation.Email;
+package com.umss.todo.common.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.umss.todo.common.validation.Email;
 
 public class UserCredentialsDto {
 	

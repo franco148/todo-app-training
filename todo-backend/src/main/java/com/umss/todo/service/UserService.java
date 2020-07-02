@@ -7,14 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.umss.todo.controller.dto.TaskRequestDto;
-import com.umss.todo.controller.dto.TaskResponseDto;
-import com.umss.todo.controller.dto.UserCredentialsDto;
-import com.umss.todo.controller.dto.UserRequestDto;
-import com.umss.todo.controller.dto.UserResponseDto;
-import com.umss.todo.reposiroty.TaskRepository;
+import com.umss.todo.common.dto.UserCredentialsDto;
+import com.umss.todo.common.dto.UserRequestDto;
+import com.umss.todo.common.dto.UserResponseDto;
 import com.umss.todo.reposiroty.UserRepository;
-import com.umss.todo.reposiroty.model.Task;
 import com.umss.todo.reposiroty.model.User;
 
 @Service

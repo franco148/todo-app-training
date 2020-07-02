@@ -8,8 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.umss.todo.controller.dto.TaskRequestDto;
-import com.umss.todo.controller.dto.TaskResponseDto;
+import com.umss.todo.common.dto.TaskRequestDto;
+import com.umss.todo.common.dto.TaskResponseDto;
 import com.umss.todo.reposiroty.TaskRepository;
 import com.umss.todo.reposiroty.UserRepository;
 import com.umss.todo.reposiroty.model.Priority;

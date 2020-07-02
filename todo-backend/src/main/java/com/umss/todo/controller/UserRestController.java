@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.umss.todo.controller.dto.TaskRequestDto;
-import com.umss.todo.controller.dto.TaskResponseDto;
-import com.umss.todo.controller.dto.UserCredentialsDto;
-import com.umss.todo.controller.dto.UserRequestDto;
-import com.umss.todo.controller.dto.UserResponseDto;
+import com.umss.todo.common.dto.TaskRequestDto;
+import com.umss.todo.common.dto.TaskResponseDto;
+import com.umss.todo.common.dto.UserCredentialsDto;
+import com.umss.todo.common.dto.UserRequestDto;
+import com.umss.todo.common.dto.UserResponseDto;
 import com.umss.todo.service.TaskService;
 import com.umss.todo.service.UserService;
 

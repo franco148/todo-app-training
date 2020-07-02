@@ -1,4 +1,4 @@
-package com.umss.todo.validation;
+package com.umss.todo.common.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
