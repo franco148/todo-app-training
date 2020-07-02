@@ -1,4 +1,4 @@
-package com.umss.todo.common.dto;
+package com.umss.todo.common.dto.response;
 
 public class UserResponseDto {
 

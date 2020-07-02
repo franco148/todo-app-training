@@ -1,4 +1,4 @@
-package com.umss.todo.common.dto;
+package com.umss.todo.common.dto.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

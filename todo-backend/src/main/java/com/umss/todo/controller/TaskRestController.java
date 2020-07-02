@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.umss.todo.common.dto.TaskResponseDto;
+import com.umss.todo.common.dto.response.TaskResponseDto;
 import com.umss.todo.service.TaskService;
 
 @Validated
