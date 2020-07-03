@@ -1,7 +1,9 @@
 package com.umss.todo.service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.modelmapper.ModelMapper;
@@ -58,6 +60,30 @@ public class TaskService {
 		return addedTaskDto;
 	}
 	
+	public TaskResponseDto updateTask(Long taskId, TaskRequestDto taskDto) throws Exception {
+		Set<String> validationErrorKeys = validateTaskRequestDto(taskDto);
+		if (!validationErrorKeys.isEmpty()) {
+			throw new Exception();
+		}
+		
+		Task taskToEdit = taskRepository.getOne(taskId);
+		if (taskToEdit == null) {
+			throw new Exception();
+		}
+		
+		State taskState = State.tryParse(taskDto.getState());
+		Priority taskPriority = Priority.tryParse(taskDto.getPriority());
+		
+		taskToEdit.setTitle(taskDto.getTitle());
+		taskToEdit.setDescription(taskDto.getDescription());		
+		taskToEdit.setState(taskState);		
+		taskToEdit.setPriority(taskPriority);
+		
+		Task editedTask = taskRepository.save(taskToEdit);
+		
+		return modelMapper.map(editedTask, TaskResponseDto.class);
+	}
+	
 	public TaskResponseDto updateTaskState(Long taskId, String state) throws Exception {
 		State newTaskState = State.tryParse(state);
 		if (newTaskState == null) {
@@ -74,12 +100,31 @@ public class TaskService {
 	}
 	
 	
+	public Set<TaskResponseDto> getUserTasksFilteredBy(Long userId, 
+													   LocalDateTime from, 
+													   LocalDateTime to, 
+													   String priority, 
+													   String state) {
+		return null;
+	}
+	
+	
+	public Map<String, Set<TaskResponseDto>> getUserTasksGroupedBy(Long userId, 
+																   LocalDateTime from, 
+																   LocalDateTime to, 
+																   String groupBy) {
+		return null;
+	}
+	
+	
 	private Set<String> validateTaskRequestDto(TaskRequestDto taskDto) {
 		Set<String> validationErrors = new HashSet<>();
 		
-//		if (!taskDto.getEndTime().isAfter(taskDto.getStartTime())) {
-//			validationErrors.add("StartTime should no be greather than EndTime");
-//		}
+		// If startTime and endTime of a TaskDto are not null, startTime should not be AFTER startTime
+		if (taskDto.getStartTime() != null && taskDto.getEndTime() != null &&
+			!taskDto.getEndTime().isAfter(taskDto.getStartTime())) {
+			validationErrors.add("StartTime should no be greather than EndTime");
+		}
 		
 		try {
 			Priority.valueOf(taskDto.getPriority());

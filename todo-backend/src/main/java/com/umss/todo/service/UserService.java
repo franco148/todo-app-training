@@ -43,13 +43,33 @@ public class UserService {
 		return userModelCollection;
 	}
 	
+	public UserResponseDto findById(Long userId) throws Exception {
+		User foundUser = userRepository.findById(userId)
+				.orElseThrow(() -> new Exception("User could not be found."));
+		
+		return modelMapper.map(foundUser, UserResponseDto.class);
+	}
+	
+	public UserResponseDto findByEmail(String email) throws Exception {
+		User foundUser = userRepository.findByEmail(email)
+						 .orElseThrow(() -> new Exception("Invalid credential exception"));
+		
+		UserResponseDto foundUserDto = modelMapper.map(foundUser, UserResponseDto.class);
+		
+		return foundUserDto;
+	}
+	
 	public UserResponseDto registerUser(UserCredentialsDto credentials) {
+		// Convert DTO to Entity for persistence
 		User userToPersist = modelMapper.map(credentials, User.class);
 		
+		// Save the Entity
 		User persistedUser = userRepository.save(userToPersist);
 		
+		// Convert the Entity to DTO to return
 		return modelMapper.map(persistedUser, UserResponseDto.class);
 	}
+	
 	
 	public UserResponseDto update(Long userId, UserRequestDto userRequestDto) throws Exception {
 		if (!userRepository.existsById(userId)) {

@@ -25,7 +25,9 @@ public class User {
 	private String firstName;
 	@Column(length = 50)
 	private String lastName;
-	@Column(nullable = false, unique = true, length = 50)
+	@Column(length = 20)
+	private String nickName;
+	@Column(nullable = false, unique = true, updatable = false, length = 50)
 	private String email;
 	@Column(nullable = false, length = 200)
 	private String password;
@@ -52,6 +54,12 @@ public class User {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}	
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	public String getEmail() {
 		return email;
