@@ -2,8 +2,11 @@ package com.umss.todo.common.dto.request;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,7 +16,11 @@ public class TaskRequestDto {
 	@Size(min = 5, max = 50, message = "Title mush have at least 5 characters and at most 50.")
 	private String title;
 	private String description;
+	@FutureOrPresent(message = "Start Time should be a present or future date time.")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime startTime;
+	@FutureOrPresent(message = "End Time should be a present or future date time.")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime endTime;	
 	private String state;
 	private String priority;

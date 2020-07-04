@@ -1,6 +1,7 @@
 package com.umss.todo.service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
@@ -15,6 +16,7 @@ import com.umss.todo.common.dto.response.TaskResponseDto;
 import com.umss.todo.exception.InvalidPropertyValueException;
 import com.umss.todo.exception.TaskNotFoundException;
 import com.umss.todo.exception.TaskValidationException;
+import com.umss.todo.exception.UserNotFoundException;
 import com.umss.todo.persistence.domain.Priority;
 import com.umss.todo.persistence.domain.State;
 import com.umss.todo.persistence.domain.Task;
@@ -45,11 +47,11 @@ public class TaskService {
 	public TaskResponseDto addTask(Long userId, TaskRequestDto taskDto) throws Exception {
 		Set<String> validationErrorKeys = validateTaskRequestDto(taskDto);
 		if (!validationErrorKeys.isEmpty()) {
-			throw new Exception("The following errors happened");
+			throw new TaskValidationException(validationErrorKeys);
 		}
 		
 		if (!userRepository.existsById(userId)) {
-			throw new Exception("User with ID=" + userId + " does not exist.");
+			throw new UserNotFoundException(userId);
 		}
 		
 		Task taskToAdd = modelMapper.map(taskDto, Task.class);
@@ -103,6 +105,15 @@ public class TaskService {
 							.orElseThrow(() -> new TaskNotFoundException(taskId));
 		
 		existingTask.setState(newTaskState);
+		if (newTaskState == State.IN_PROGRESS) {
+			// When task starts in progress state, set startTime
+			existingTask.setStartTime(LocalDateTime.now());
+		} else if (newTaskState == State.COMPLETED) {
+			// When task ends, the duration is calculated and set to the task
+			existingTask.setEndTime(LocalDateTime.now());
+			Long hoursDuration = existingTask.getStartTime().until(existingTask.getEndTime(), ChronoUnit.MINUTES);
+			existingTask.setDuration(hoursDuration);
+		}
 		Task updatedTask = taskRepository.save(existingTask);
 		
 		return modelMapper.map(updatedTask, TaskResponseDto.class);

@@ -47,7 +47,7 @@ public class UserService {
 	
 	public UserResponseDto findById(Long userId) throws UserNotFoundException {
 		User foundUser = userRepository.findById(userId)
-				.orElseThrow(() -> new UserNotFoundException(userId));
+						 .orElseThrow(() -> new UserNotFoundException(userId));
 		
 		return modelMapper.map(foundUser, UserResponseDto.class);
 	}
