@@ -69,7 +69,6 @@ public class UserRestController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<?> findById(@PathVariable("userId") Long userId) {
 		try {
-			// Java Generics
 			UserResponseDto responseDto = userService.findById(userId);
 			return ResponseEntity.ok(responseDto);
 		} catch (UserNotFoundException e) {

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.umss.todo.persistence.domain.Priority;
 import com.umss.todo.persistence.domain.State;
 
+@SuppressWarnings("serial")
 public class TaskValidationException extends Exception {
 
 	public static final String START_END_DATETIME_FIELD = "DATETIME";
@@ -26,12 +27,13 @@ public class TaskValidationException extends Exception {
 	};
 	
 	
+	// Constructor
 	public TaskValidationException(Set<String> errorMessagesKeys) {
 		super(PREFIX_TASK_ERROR_MESSAGE + buildTaskValidationErrorMessage(errorMessagesKeys).toString());
 	}
 	
 	
-	
+	// Methods
 	private static Map<String, String> buildTaskValidationErrorMessage(Set<String> errorMessagesKeys) {
 		Map<String, String> errorMessageResponse = new HashMap<String, String>();
 		
@@ -59,14 +61,4 @@ public class TaskValidationException extends Exception {
 
 		return PREFIX_FIELD_ERROR_MESSAGE + validStateValues;
 	}
-	
-	
-	/**
-	 * Process can not continue due to the following errors: 
-	 * {
-	 * 	DATETIME=EndTime should be greather than StartTime, 
-	 * 	STATE=PAUSEDDDDD Is not a correct value, allowed values are: [IN_PROGRESS, PAUSED, CANCELLED, COMPLETED, PLANNED], 
-	 * 	PRIORITY=MEDIUMMMM Is not a correct value, allowed values are: [HIGH, MEDIUM, LOW, NORMAL]
-	 * }
-	 */
 }

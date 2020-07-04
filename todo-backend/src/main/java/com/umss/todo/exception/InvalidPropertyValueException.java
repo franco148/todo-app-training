@@ -1,5 +1,6 @@
 package com.umss.todo.exception;
 
+@SuppressWarnings("serial")
 public class InvalidPropertyValueException extends Exception {
 
 	private static final String ERROR_MESSAGE = "Invalid value=%s for property=%s";
