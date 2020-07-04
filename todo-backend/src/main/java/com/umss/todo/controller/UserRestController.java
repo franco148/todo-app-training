@@ -31,6 +31,8 @@ import com.umss.todo.common.dto.request.UserRequestDto;
 import com.umss.todo.common.dto.response.TaskResponseDto;
 import com.umss.todo.common.dto.response.UserResponseDto;
 import com.umss.todo.exception.ExceptionResponse;
+import com.umss.todo.exception.TaskNotFoundException;
+import com.umss.todo.exception.TaskValidationException;
 import com.umss.todo.exception.UserNotFoundException;
 import com.umss.todo.service.TaskService;
 import com.umss.todo.service.UserService;
@@ -98,14 +100,20 @@ public class UserRestController {
 	
 	// http://localhost:8080/users/{userId}/task
 	@PostMapping("{userId}/task")
-	public TaskResponseDto addTask(@PathVariable("userId") Long userId,
+	public ResponseEntity<?> addTask(@PathVariable("userId") Long userId,
 								   @Valid @RequestBody TaskRequestDto taskDto) {
 		try {
-			return taskService.addTask(userId, taskDto);
+			TaskResponseDto responseDto = taskService.addTask(userId, taskDto);
+			return ResponseEntity.ok(responseDto);
+		} catch (TaskValidationException e) {
+			ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), new Date());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
+		} catch (UserNotFoundException e) {
+			ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), new Date());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+			ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), new Date());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
 		}
 	}
 	
