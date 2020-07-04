@@ -12,12 +12,17 @@ import org.springframework.stereotype.Service;
 
 import com.umss.todo.common.dto.request.TaskRequestDto;
 import com.umss.todo.common.dto.response.TaskResponseDto;
+import com.umss.todo.exception.InvalidPropertyValueException;
+import com.umss.todo.exception.TaskNotFoundException;
+import com.umss.todo.exception.TaskValidationException;
 import com.umss.todo.persistence.domain.Priority;
 import com.umss.todo.persistence.domain.State;
 import com.umss.todo.persistence.domain.Task;
 import com.umss.todo.persistence.domain.User;
 import com.umss.todo.persistence.repository.TaskRepository;
 import com.umss.todo.persistence.repository.UserRepository;
+
+import static com.umss.todo.exception.TaskValidationException.*;
 
 @Service
 public class TaskService {
@@ -60,15 +65,17 @@ public class TaskService {
 		return addedTaskDto;
 	}
 	
-	public TaskResponseDto updateTask(Long taskId, TaskRequestDto taskDto) throws Exception {
+	public TaskResponseDto updateTask(Long taskId, TaskRequestDto taskDto) 
+			throws TaskValidationException, TaskNotFoundException {
+		
 		Set<String> validationErrorKeys = validateTaskRequestDto(taskDto);
 		if (!validationErrorKeys.isEmpty()) {
-			throw new Exception();
+			throw new TaskValidationException(validationErrorKeys);
 		}
 		
 		Task taskToEdit = taskRepository.getOne(taskId);
 		if (taskToEdit == null) {
-			throw new Exception();
+			throw new TaskNotFoundException(taskId);
 		}
 		
 		State taskState = State.tryParse(taskDto.getState());
@@ -84,14 +91,16 @@ public class TaskService {
 		return modelMapper.map(editedTask, TaskResponseDto.class);
 	}
 	
-	public TaskResponseDto updateTaskState(Long taskId, String state) throws Exception {
+	public TaskResponseDto updateTaskState(Long taskId, String state) 
+			throws InvalidPropertyValueException, TaskNotFoundException {
+		
 		State newTaskState = State.tryParse(state);
 		if (newTaskState == null) {
-			throw new Exception("State=" + state + " is not valid.");
+			throw new InvalidPropertyValueException("STATE", state);
 		}
 		
 		Task existingTask = taskRepository.findById(taskId)
-							.orElseThrow(() -> new Exception("Task could not be found."));
+							.orElseThrow(() -> new TaskNotFoundException(taskId));
 		
 		existingTask.setState(newTaskState);
 		Task updatedTask = taskRepository.save(existingTask);
@@ -105,6 +114,29 @@ public class TaskService {
 													   LocalDateTime to, 
 													   String priority, 
 													   String state) {
+		
+		/**
+		 * SCENARIO 1: priority = HIGH
+		 * 
+		 * [
+		 * 	{title: tarea1, priority: HIGH, state: in_progress},
+		 *  {title: tarea2, priority: HIGH, state: cancelled}
+		 *  ...
+		 *  ...
+		 *  ...
+		 * ]
+		 * 
+		 * SCENARIO 2: priority = LOW & state = COMPLETED
+		 * [
+		 * 	{title: tarea1, priority: LOW, state: COMPLETED},
+		 *  {title: tarea2, priority: LOW, state: COMPLETED}
+		 * ]
+		 * 
+		 * SCENARIO 3: state = IN_PROGRESS
+		 * 
+		 * SCENARIO 4: todooooooooooooo
+		 */
+		
 		return null;
 	}
 	
@@ -113,6 +145,62 @@ public class TaskService {
 																   LocalDateTime from, 
 																   LocalDateTime to, 
 																   String groupBy) {
+		/**
+		 * STATE
+		 * ==========================================
+		 * 
+		 * PLANNED: [{taria1}, {tarea2}, {tarea3}......{tareaN}]
+		 * IN_PROGRESS: [{tariaB}, {tareaB1}, {tareaB2}......{tareaN}]
+		 * COMPLETED: [{tariaC}, {tarea2}, {tarea3}......{tareaN}]
+		 * ...
+		 * ...
+		 * 
+		 * 
+		 * [
+   "PLANNED":   [
+      {
+         taria1
+      },
+      {
+         tarea2
+      },
+      {
+         tarea3
+      },
+      {
+         "tareaN"
+      }
+   ],
+   "IN_PROGRESS":   [
+      {
+         "tariaB"
+      },
+      {
+         tareaB1
+      },
+      {
+         tareaB2
+      }      "......"      {
+         "tareaN"
+      }
+   ],
+   "COMPLETED":   [
+      {
+         "tariaC"
+      },
+      {
+         tarea2
+      },
+      {
+         tarea3
+      },
+      {
+         "tareaN"
+      }
+   ]
+]
+		 * 
+		 */
 		return null;
 	}
 	
@@ -123,19 +211,19 @@ public class TaskService {
 		// If startTime and endTime of a TaskDto are not null, startTime should not be AFTER startTime
 		if (taskDto.getStartTime() != null && taskDto.getEndTime() != null &&
 			!taskDto.getEndTime().isAfter(taskDto.getStartTime())) {
-			validationErrors.add("StartTime should no be greather than EndTime");
+			validationErrors.add(START_END_DATETIME_FIELD);
 		}
 		
 		try {
 			Priority.valueOf(taskDto.getPriority());
 		} catch (Exception e) {
-			validationErrors.add("Invalid value for PRIORITY");
+			validationErrors.add(PRIORITY_FIELD);
 		}
 		
 		try {
 			State.valueOf(taskDto.getState());
 		} catch (Exception e) {
-			validationErrors.add("Invalid value for STATE");
+			validationErrors.add(STATE_FIELD);
 		}
 		
 		return validationErrors;

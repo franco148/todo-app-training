@@ -1,6 +1,7 @@
 package com.umss.todo.controller;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +13,8 @@ import javax.validation.constraints.Pattern.Flag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +30,8 @@ import com.umss.todo.common.dto.request.UserCredentialsDto;
 import com.umss.todo.common.dto.request.UserRequestDto;
 import com.umss.todo.common.dto.response.TaskResponseDto;
 import com.umss.todo.common.dto.response.UserResponseDto;
+import com.umss.todo.exception.ExceptionResponse;
+import com.umss.todo.exception.UserNotFoundException;
 import com.umss.todo.service.TaskService;
 import com.umss.todo.service.UserService;
 
@@ -62,26 +67,33 @@ public class UserRestController {
 	
 	// http://localhost:8080/users/{userId}
 	@GetMapping("/{userId}")
-	public UserResponseDto findById(@PathVariable("userId") Long userId) {
+	public ResponseEntity<?> findById(@PathVariable("userId") Long userId) {
 		try {
-			return userService.findById(userId);
+			// Java Generics
+			UserResponseDto responseDto = userService.findById(userId);
+			return ResponseEntity.ok(responseDto);
+		} catch (UserNotFoundException e) {
+			ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), new Date());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+			ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), new Date());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
 		}
 	}
 	
 	// http://localhost:8080/users/{userId}
 	@PutMapping("/{userId}")
-	public UserResponseDto updateUserProfile(@PathVariable("userId") Long userId,
+	public ResponseEntity<?> updateUserProfile(@PathVariable("userId") Long userId,
 											 @Valid @RequestBody UserRequestDto userProfile) {
 		try {
-			return userService.update(userId, userProfile);
+			UserResponseDto updatedDto = userService.update(userId, userProfile);
+			return ResponseEntity.ok(updatedDto);
+		} catch (UserNotFoundException e) {
+			ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), new Date());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+			ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), new Date());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
 		}
 	}
 	
@@ -116,6 +128,15 @@ public class UserRestController {
 			@PathVariable("groupBy") @Pattern(regexp = "STATE|PRIORITY", flags = Flag.CANON_EQ) String groupBy,
 			@RequestParam(name = "startDate", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate startDate,
 			@RequestParam(name = "endDate", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate endDate) {
+
+		try {
+			validateStartAndDate(startDate, endDate);
+		} catch (Exception e) {
+//			throw new Algo();
+		}
+		
+//		taskService.getUserTasksGroupedBy(userId, from, to, groupBy);
+		
 		return null;
 	}
 	

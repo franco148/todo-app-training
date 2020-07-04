@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.umss.todo.common.dto.request.UserCredentialsDto;
 import com.umss.todo.common.dto.request.UserRequestDto;
 import com.umss.todo.common.dto.response.UserResponseDto;
+import com.umss.todo.exception.InvalidCredentialsException;
+import com.umss.todo.exception.UserNotFoundException;
 import com.umss.todo.persistence.domain.User;
 import com.umss.todo.persistence.repository.UserRepository;
 
@@ -43,16 +45,16 @@ public class UserService {
 		return userModelCollection;
 	}
 	
-	public UserResponseDto findById(Long userId) throws Exception {
+	public UserResponseDto findById(Long userId) throws UserNotFoundException {
 		User foundUser = userRepository.findById(userId)
-				.orElseThrow(() -> new Exception("User could not be found."));
+				.orElseThrow(() -> new UserNotFoundException(userId));
 		
 		return modelMapper.map(foundUser, UserResponseDto.class);
 	}
 	
-	public UserResponseDto findByEmail(String email) throws Exception {
+	public UserResponseDto findByEmail(String email) throws InvalidCredentialsException {
 		User foundUser = userRepository.findByEmail(email)
-						 .orElseThrow(() -> new Exception("Invalid credential exception"));
+						 .orElseThrow(() -> new InvalidCredentialsException());
 		
 		UserResponseDto foundUserDto = modelMapper.map(foundUser, UserResponseDto.class);
 		
@@ -71,9 +73,9 @@ public class UserService {
 	}
 	
 	
-	public UserResponseDto update(Long userId, UserRequestDto userRequestDto) throws Exception {
+	public UserResponseDto update(Long userId, UserRequestDto userRequestDto) throws UserNotFoundException {
 		if (!userRepository.existsById(userId)) {
-			throw new Exception("User with ID=" + userId + " does not exist.");
+			throw new UserNotFoundException(userId);
 		}
 		
 		User foundUser = userRepository.getOne(userId);
