@@ -1,5 +1,6 @@
 package com.umss.todo.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,8 +94,11 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		User foundUser = userRepository.findByEmail(username)
+						 .orElseThrow(() -> new InvalidCredentialsException());
+		
+		return new org.springframework.security.core.userdetails.User
+				(foundUser.getEmail(), foundUser.getPassword(), Arrays.asList());
 	}
 	
 	
