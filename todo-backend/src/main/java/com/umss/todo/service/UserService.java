@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.umss.todo.common.dto.request.UserCredentialsDto;
@@ -16,7 +19,7 @@ import com.umss.todo.persistence.domain.User;
 import com.umss.todo.persistence.repository.UserRepository;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
 	private UserRepository userRepository;	
 	private ModelMapper modelMapper;
@@ -85,6 +88,13 @@ public class UserService {
 		UserResponseDto updatedDto = modelMapper.map(updatedUser, UserResponseDto.class);
 		
 		return updatedDto;
+	}
+
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
