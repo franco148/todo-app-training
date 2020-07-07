@@ -10,7 +10,6 @@ public class UserResponseDto {
 	private String lastName;
 	private String nickName;
 	private String email;
-	private String password;
 	private Set<TaskResponseDto> tasks = new HashSet<TaskResponseDto>();
 	
 	
@@ -43,12 +42,6 @@ public class UserResponseDto {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public Set<TaskResponseDto> getTasks() {
 		return tasks;
