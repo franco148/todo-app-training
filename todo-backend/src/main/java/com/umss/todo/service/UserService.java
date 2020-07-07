@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.umss.todo.common.dto.request.UserCredentialsDto;
@@ -24,13 +25,16 @@ public class UserService implements UserDetailsService {
 
 	private UserRepository userRepository;	
 	private ModelMapper modelMapper;
+	private PasswordEncoder passwordEncoder;
 	
 	
 	@Autowired
 	public UserService(UserRepository userRepository,
-					   ModelMapper modelMapper) {
+					   ModelMapper modelMapper,
+					   PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.modelMapper = modelMapper;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	
@@ -68,6 +72,7 @@ public class UserService implements UserDetailsService {
 	public UserResponseDto registerUser(UserCredentialsDto credentials) {
 		// Convert DTO to Entity for persistence
 		User userToPersist = modelMapper.map(credentials, User.class);
+		userToPersist.setPassword(passwordEncoder.encode(credentials.getPassword()));
 		
 		// Save the Entity
 		User persistedUser = userRepository.save(userToPersist);

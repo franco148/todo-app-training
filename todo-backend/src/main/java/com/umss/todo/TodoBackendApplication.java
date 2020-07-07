@@ -19,6 +19,10 @@ public class TodoBackendApplication implements CommandLineRunner {
 //		UsersTest testAllUsers = new UsersTest(new OracleUserConnector());
 //		List<User> result = testAllUsers.getAllSystemUsers();
 //		System.out.println("Amount of users: " + result.size());
+		
+		
+		// mypassword
+		// $2a$10$yfDvtW23dOrK5Q7UtL2P9eBjk8JuZ2.WtmWkZv8et0Cm3eElx8LT2
 	}
 
 }
