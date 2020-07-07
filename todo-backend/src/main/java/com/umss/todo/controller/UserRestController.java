@@ -31,7 +31,6 @@ import com.umss.todo.common.dto.request.UserRequestDto;
 import com.umss.todo.common.dto.response.TaskResponseDto;
 import com.umss.todo.common.dto.response.UserResponseDto;
 import com.umss.todo.exception.ExceptionResponse;
-import com.umss.todo.exception.TaskNotFoundException;
 import com.umss.todo.exception.TaskValidationException;
 import com.umss.todo.exception.UserNotFoundException;
 import com.umss.todo.service.TaskService;

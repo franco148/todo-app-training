@@ -75,18 +75,10 @@ public class TaskService {
 			throw new TaskValidationException(validationErrorKeys);
 		}
 		
-		Task taskToEdit = taskRepository.getOne(taskId);
-		if (taskToEdit == null) {
-			throw new TaskNotFoundException(taskId);
-		}
-		
-		State taskState = State.tryParse(taskDto.getState());
-		Priority taskPriority = Priority.tryParse(taskDto.getPriority());
-		
-		taskToEdit.setTitle(taskDto.getTitle());
-		taskToEdit.setDescription(taskDto.getDescription());		
-		taskToEdit.setState(taskState);		
-		taskToEdit.setPriority(taskPriority);
+		Task taskToEdit = taskRepository.findById(taskId)
+						  .orElseThrow(() -> new TaskNotFoundException(taskId));
+
+		modelMapper.map(taskDto, taskToEdit);
 		
 		Task editedTask = taskRepository.save(taskToEdit);
 		

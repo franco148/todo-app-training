@@ -29,7 +29,8 @@ public class BeanUtilsConfig {
 		modelMapper.addMappings(new PropertyMap<User, UserResponseDto>() {
 			@Override
 			protected void configure() {
-				skip(destination.getTasks());
+				// skip(destination.getPassword());
+				skip(destination.getTasks());				
 			}
 		});
 		
