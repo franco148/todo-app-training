@@ -1,1 +1,16 @@
-<p>task-item-creator works!</p>
+<section fxLayout="row" fxLayoutAlign="center center">
+  <mat-form-field appearance="fill">
+    <a matPrefix>
+      <div fxLayout="row">
+        <!-- <mat-icon>drag_indicator</mat-icon> -->
+        <mat-icon>more_vert</mat-icon>
+        <mat-icon>label</mat-icon>
+      </div>
+    </a>
+    <input type="text" matInput placeholder="Enter your task title here..." (keyup.enter)="onSaveTask($event.target.value)">
+    <button mat-icon-button matSuffix>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+  </mat-form-field>
+</section>
+

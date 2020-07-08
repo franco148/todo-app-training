@@ -1,0 +1,11 @@
+section {
+  padding-top: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+input {
+  padding-left: 10px;
+}
