@@ -1,1 +1,29 @@
-<p>task-item-edit works!</p>
+<form fxLayout="column" fxLayoutGap="10px" #form="ngForm" (ngSubmit)="onSave(form)">
+  <h2 fxLayoutAlign="center" for="">Schedule your task</h2>
+  <mat-form-field hintLabel="Min 10 characters" appearance="fill">
+    <mat-label>Your task title</mat-label>
+    <input matInput placeholder="Task title..." name="title" id="title" [(ngModel)]="taskItem.title">
+  </mat-form-field>
+  <mat-form-field hintLabel="HIGH | MEDIUM | LOW | NORMAL" appearance="fill">
+    <mat-label>Your task priority</mat-label>
+    <input matInput placeholder="Task priority..." name="priority" id="priority" [(ngModel)]="taskItem.priority">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Your task description</mat-label>
+    <textarea matInput placeholder="The most important description..." name="description" id="description" [(ngModel)]="taskItem.description"></textarea>
+  </mat-form-field>
+  <!-- <span fxLayoutAlign="end center">
+    <mat-label>Set duration time</mat-label>
+    <mat-icon>schedule</mat-icon>
+  </span> -->
+  <span fxLayoutAlign="end center">
+    <mat-label>Set start time</mat-label>
+    <input class="time-picker" [ngxTimepicker]="toggleTimepicker" [disableClick]="true" name="startTime" id="startTime" [(ngModel)]="startTime" readonly>
+    <ngx-material-timepicker-toggle [for]="toggleTimepicker" disabled="true"></ngx-material-timepicker-toggle>
+    <ngx-material-timepicker #toggleTimepicker disabled="true"></ngx-material-timepicker>
+  </span>
+  <span class="task-edit-buttons" fxLayoutAlign="space-between">
+    <button mat-raised-button color="secondary" (click)="onCancel()">Cancel</button>
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </span>
+</form>
