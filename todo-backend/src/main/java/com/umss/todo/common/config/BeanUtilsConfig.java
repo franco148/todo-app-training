@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.umss.todo.common.dto.request.UserRequestDto;
 import com.umss.todo.common.dto.response.UserResponseDto;
@@ -35,5 +37,10 @@ public class BeanUtilsConfig {
 		});
 		
 		return modelMapper;
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

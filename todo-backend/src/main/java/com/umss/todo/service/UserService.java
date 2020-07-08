@@ -1,10 +1,15 @@
 package com.umss.todo.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.umss.todo.common.dto.request.UserCredentialsDto;
@@ -16,17 +21,20 @@ import com.umss.todo.persistence.domain.User;
 import com.umss.todo.persistence.repository.UserRepository;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
 	private UserRepository userRepository;	
 	private ModelMapper modelMapper;
+	private PasswordEncoder passwordEncoder;
 	
 	
 	@Autowired
 	public UserService(UserRepository userRepository,
-					   ModelMapper modelMapper) {
+					   ModelMapper modelMapper,
+					   PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.modelMapper = modelMapper;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	
@@ -64,6 +72,7 @@ public class UserService {
 	public UserResponseDto registerUser(UserCredentialsDto credentials) {
 		// Convert DTO to Entity for persistence
 		User userToPersist = modelMapper.map(credentials, User.class);
+		userToPersist.setPassword(passwordEncoder.encode(credentials.getPassword()));
 		
 		// Save the Entity
 		User persistedUser = userRepository.save(userToPersist);
@@ -85,6 +94,16 @@ public class UserService {
 		UserResponseDto updatedDto = modelMapper.map(updatedUser, UserResponseDto.class);
 		
 		return updatedDto;
+	}
+
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User foundUser = userRepository.findByEmail(username)
+						 .orElseThrow(() -> new InvalidCredentialsException());
+		
+		return new org.springframework.security.core.userdetails.User
+				(foundUser.getEmail(), foundUser.getPassword(), Arrays.asList());
 	}
 	
 	
