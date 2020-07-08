@@ -11,11 +11,13 @@ import { MatIconModule } from "@angular/material/icon";
 
 import { AppComponent } from './app.component';
 import { UserAccountComponent } from './components/user-account/user-account.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserAccountComponent
+    UserAccountComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
