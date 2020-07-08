@@ -12,12 +12,14 @@ import { MatIconModule } from "@angular/material/icon";
 import { AppComponent } from './app.component';
 import { UserAccountComponent } from './components/user-account/user-account.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserAccountComponent,
-    SidenavComponent
+    SidenavComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,
