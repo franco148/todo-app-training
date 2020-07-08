@@ -1,1 +1,19 @@
-<p>task-list-item works!</p>
+<section fxLayout="row" fxLayoutAlign="center center" style="background-color: lavender;">
+  <!-- <span> -->
+    <!-- <mat-icon>drag_indicator</mat-icon> -->
+    <!-- <mat-icon>more_vert</mat-icon>
+    <mat-icon>radio_button_unchecked</mat-icon>
+  </span> -->
+  <!-- <mat-icon class="icon-task-options" (mouseover)="moreOptionMouseEnter()" (mouseout)="moreOptionsMouseLeave()">more_vert</mat-icon> -->
+  <!-- <mat-icon class="icon-task-options" (mouseenter)="moreOptionMouseEnter()" (mouseleave)="moreOptionsMouseLeave()">more_vert</mat-icon> -->
+  <!-- <button mat-icon-button [matMenuTriggerFor]="optionsMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button> -->
+  <mat-icon class="icon-task-options" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
+  <mat-menu #optionsMenu="matMenu">
+    <app-task-item-options [taskId]="taskItem.id" [currentState]="taskItem.state"></app-task-item-options>
+  </mat-menu>
+  <mat-icon [style.color]="getItemPriority()">label</mat-icon>
+  <label>{{taskItem.title}}</label>
+  <mat-icon class="btn-details" (click)="addTaskFullInformation()">arrow_drop_down</mat-icon>
+</section>

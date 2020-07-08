@@ -1,0 +1,39 @@
+section {
+  width: 100%;
+  padding-left: 10px;
+}
+
+span {
+  width: 15%;
+  padding: 0px;
+  margin: 0px;
+}
+
+label {
+  width: 85%;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.btn-details {
+  /* width: 10%; */
+  padding-right: .8rem;
+}
+
+.btn-details:hover {
+  cursor: pointer;
+  /* transform: scale(1.5); */
+}
+
+.icon-task-options {
+  cursor: pointer;
+}
+
+::ng-deep .mat-menu-panel {
+  min-width: 75px;
+  min-height: 15px;
+}
+
+/* .cdk-overlay-pane.mat-menu-panel {
+  max-width: 50px !important;
+} */
