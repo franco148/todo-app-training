@@ -1,0 +1,9 @@
+
+a {
+  cursor: pointer;
+}
+
+.login-component-links {
+  color: steelblue;
+  border-bottom: 1px solid steelblue;
+}
