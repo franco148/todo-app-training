@@ -36,7 +36,7 @@ import com.umss.todo.exception.UserNotFoundException;
 import com.umss.todo.service.TaskService;
 import com.umss.todo.service.UserService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
