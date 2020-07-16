@@ -12,6 +12,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDividerModule } from "@angular/material/divider";
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from "@angular/material/list";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -51,7 +53,9 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     MatSnackBarModule,
     MatToolbarModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
