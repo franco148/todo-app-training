@@ -8,13 +8,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserService {
 
   constructor(private http: HttpClient,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar) {
+    //
+  }
 
   login(authData) {
 
     this.http.post('http://localhost:8080/login', authData)
-    .subscribe(authResponse => {
+    .subscribe((authResponse: any) => {
       console.log(authResponse);
+      localStorage.setItem('todo-auth-token', authResponse.token);
+      localStorage.setItem('todo-auth-user', JSON.stringify(authResponse.user));
     },
     authError => {
       console.log('An error ocurred in Login process ', authError);
