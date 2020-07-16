@@ -1,5 +1,8 @@
-<section>
-  <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+<section fxLayout="column" fxLayoutGap="50px">
+  <div class="login-image-container" fxLayout="row" fxLayoutAlign="center center">
+    <img mat-card-image src="assets/img/LoginPage.png" layout-fill>
+  </div>
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input
@@ -21,7 +24,22 @@
     </mat-form-field>
 
     <button
+      *ngIf="!isLoginOperation"
+      type="submit"
       mat-raised-button
       color="primary">Register</button>
+
+    <button
+    *ngIf="isLoginOperation"
+      type="submit"
+      mat-raised-button
+      color="primary">Log in</button>
+
+    <mat-label *ngIf="isLoginOperation">Don't you have an account?
+      <a class="login-component-links" (click)="changeOperation()">Register</a>
+    </mat-label>
+    <mat-label *ngIf="!isLoginOperation">Already have an account?
+      <a class="login-component-links" (click)="changeOperation()">Log In</a>
+    </mat-label>
   </form>
 </section>

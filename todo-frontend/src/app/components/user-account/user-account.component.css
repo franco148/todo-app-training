@@ -1,0 +1,21 @@
+
+a {
+  cursor: pointer;
+}
+
+.login-component-links {
+  color: steelblue;
+  border-bottom: 1px solid steelblue;
+}
+
+mat-form-field {
+  width: 300px;
+}
+
+.login-image-container {
+  margin-top: 5rem;
+}
+
+img {
+  width: 200px;
+}

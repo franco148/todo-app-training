@@ -1,24 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-account',
   templateUrl: './user-account.component.html',
   styleUrls: ['./user-account.component.css']
 })
-export class UserAccountComponent implements OnInit {
+export class UserAccountComponent implements OnInit, OnDestroy {
 
   accountForm: FormGroup;
   hide = true;
+  isLoginOperation = true;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.accountForm = new FormGroup({
-      email: new FormControl(''),
-      password: new FormControl('')
-    });
+    this.cleanComponent();
   }
 
   onSubmit() {
@@ -27,9 +26,27 @@ export class UserAccountComponent implements OnInit {
       email: this.accountForm.value.email,
       password: this.accountForm.value.password
     };
-    console.log('On Subtmit clicked!!!', userAccount);
-    this.httpClient.post(`http://localhost:8080/users`, userAccount)
-      .subscribe(response => console.log('Account has been created!!!', response));
+
+    if (this.isLoginOperation) {
+      this.userService.login(userAccount);
+    } else {
+      this.userService.register(userAccount);
+    }
+
   }
 
+  changeOperation() {
+    this.isLoginOperation = !this.isLoginOperation;
+  }
+
+  cleanComponent() {
+    this.accountForm = new FormGroup({
+      email: new FormControl(''),
+      password: new FormControl('')
+    });
+  }
+
+  ngOnDestroy() {
+
+  }
 }
