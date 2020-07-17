@@ -103,10 +103,10 @@ export class UserService {
 
   private redirectEvent(authenticatedUser: UserModel, path: string) {
     if (authenticatedUser) {
-      //
+      this.onIsAuthenticationChanged.next(authenticatedUser);
     } else {
       const loginErrorMessage = "Invalid email or password, please try again."
-      //
+      this.onAuthenticationErrorChanged.next(loginErrorMessage);
     }
     this.router.navigate([`/${path}`]);
   }

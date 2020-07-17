@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
+
+import { Subscription } from 'rxjs';
+
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,28 +14,38 @@ import { UserService } from 'src/app/services/user.service';
 export class UserAccountComponent implements OnInit, OnDestroy {
 
   accountForm: FormGroup;
-  hide = true;
+  hidePassword = true;
+  loginErrorMessage: string;
   isLoginOperation = true;
+
+  onAuthenticationErrorSubscription: Subscription;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.cleanComponent();
+
+    this.onAuthenticationErrorSubscription = this.userService.onAuthenticationErrorChanged
+    .subscribe(errorMessage => {
+      this.loginErrorMessage = errorMessage;
+    });
   }
 
   onSubmit() {
 
-    const userAccount = {
-      email: this.accountForm.value.email,
-      password: this.accountForm.value.password
-    };
-
     if (this.isLoginOperation) {
-      this.userService.login(userAccount);
+      this.userService.login({
+        email: this.accountForm.value.email,
+        password: this.accountForm.value.password
+      });
     } else {
-      this.userService.register(userAccount);
+      this.userService.register({
+        email: this.accountForm.value.email,
+        password: this.accountForm.value.password
+      });
     }
 
+    this.cleanComponent();
   }
 
   changeOperation() {
@@ -41,12 +54,12 @@ export class UserAccountComponent implements OnInit, OnDestroy {
 
   cleanComponent() {
     this.accountForm = new FormGroup({
-      email: new FormControl(''),
-      password: new FormControl('')
+      email: new FormControl('', { validators: [Validators.required, Validators.email] }),
+      password: new FormControl('', { validators: [Validators.required, Validators.minLength(6)] })
     });
   }
 
   ngOnDestroy() {
-
+    this.onAuthenticationErrorSubscription.unsubscribe();
   }
 }

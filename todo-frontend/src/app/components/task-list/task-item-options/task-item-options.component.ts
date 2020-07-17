@@ -22,49 +22,49 @@ export class TaskItemOptionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // onPlay() {
-  //   // console.log('Moving the task to IN_PROGRESS');
-  //   this.taskService.changeTaskState(this.taskId, State.IN_PROGRESS)
-  //   .subscribe(updatedTask => {
-  //     // console.log("Updated task", updatedTask);
-  //     this.notifyChange(updatedTask);
-  //   });
-  // }
+  onPlay() {
+    // console.log('Moving the task to IN_PROGRESS');
+    this.taskService.changeTaskState(this.taskId, State.IN_PROGRESS)
+    .subscribe(updatedTask => {
+      // console.log("Updated task", updatedTask);
+      this.notifyChange(updatedTask);
+    });
+  }
 
-  // onPause() {
-  //   // console.log('Moving the task to PAUSE');
-  //   this.taskService.changeTaskState(this.taskId, State.PAUSED)
-  //   .subscribe(updatedTask => {
-  //     // console.log("Updated task", updatedTask);
-  //     this.notifyChange(updatedTask);
-  //   });
-  // }
+  onPause() {
+    // console.log('Moving the task to PAUSE');
+    this.taskService.changeTaskState(this.taskId, State.PAUSED)
+    .subscribe(updatedTask => {
+      // console.log("Updated task", updatedTask);
+      this.notifyChange(updatedTask);
+    });
+  }
 
-  // onComplete() {
-  //   // console.log('Moving the task to STOP');
-  //   this.taskService.changeTaskState(this.taskId, State.COMPLETED)
-  //   .subscribe(updatedTask => {
-  //     // console.log("Updated task", updatedTask);
-  //     this.notifyChange(updatedTask);
-  //   });
-  // }
+  onComplete() {
+    // console.log('Moving the task to STOP');
+    this.taskService.changeTaskState(this.taskId, State.COMPLETED)
+    .subscribe(updatedTask => {
+      // console.log("Updated task", updatedTask);
+      this.notifyChange(updatedTask);
+    });
+  }
 
-  // onCancel() {
-  //   // console.log('Moving the task to CANCEL');
-  //   this.taskService.changeTaskState(this.taskId, State.CANCELLED)
-  //   .subscribe(updatedTask => {
-  //     // console.log("Updated task", updatedTask);
-  //     this.notifyChange(updatedTask);
-  //   });
-  // }
+  onCancel() {
+    // console.log('Moving the task to CANCEL');
+    this.taskService.changeTaskState(this.taskId, State.CANCELLED)
+    .subscribe(updatedTask => {
+      // console.log("Updated task", updatedTask);
+      this.notifyChange(updatedTask);
+    });
+  }
 
-  // private notifyChange(task: TaskModel) {
-  //   const notificationBody: TaskChange = {
-  //     operation: TaskOperation.UPDATED,
-  //     prevState: this.currentState,
-  //     task: task
-  //   };
-  //   this.taskService.onTaskSaveUpdateChanged.next(notificationBody);
-  // }
+  private notifyChange(task: TaskModel) {
+    const notificationBody: TaskChange = {
+      operation: TaskOperation.UPDATED,
+      prevState: this.currentState,
+      task: task
+    };
+    this.taskService.onTaskSaveUpdateChanged.next(notificationBody);
+  }
 
 }
