@@ -109,6 +109,7 @@ export class UserService {
       const loginErrorMessage = "Invalid email or password, please try again."
       this.onAuthenticationErrorChanged.next(loginErrorMessage);
     }
+    console.log('Redirecting to: ', path);
     this.router.navigate([`/${path}`]);
   }
 }
