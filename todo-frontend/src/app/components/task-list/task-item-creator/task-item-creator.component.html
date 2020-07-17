@@ -7,7 +7,10 @@
         <mat-icon>label</mat-icon>
       </div>
     </a>
-    <input type="text" matInput placeholder="Enter your task title here..." (keyup.enter)="onSaveTask($event.target.value)">
+    <input
+      type="text" matInput
+      placeholder="Enter your task title here..."
+      (keyup.enter)="onSaveTask($event.target.value)">
     <button mat-icon-button matSuffix>
       <mat-icon>arrow_drop_down</mat-icon>
     </button>

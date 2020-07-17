@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -14,8 +14,12 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from "@angular/material/list";
+import { MatDialogModule } from "@angular/material/dialog";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
+
+import { AppRoutingModule } from "./app-routing.module";
 
 import { AppComponent } from './app.component';
 import { UserAccountComponent } from './components/user-account/user-account.component';
@@ -42,6 +46,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -55,9 +60,20 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     MatMenuModule,
     MatDividerModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
+    NgxMaterialTimepickerModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptorService,
+    //   multi: true
+    // }
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    TaskItemEditComponent
+  ]
 })
 export class AppModule { }
