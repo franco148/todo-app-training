@@ -1,5 +1,14 @@
-<section>
-  <form fxLayout="column" fxLayoutGap="10px" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+<section fxLayout="column" fxLayoutGap="50px">
+  <div class="login-image-container" fxLayout="row" fxLayoutAlign="center center">
+    <img mat-card-image src="assets/img/LoginPage.png" layout-fill>
+  </div>
+
+  <form fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+        [formGroup]="accountForm"
+        (ngSubmit)="onSubmit()">
+
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input
@@ -7,17 +16,25 @@
         type="email"
         placeholder="user@example.com"
         formControlName="email">
+      <mat-error *ngIf="accountForm.controls.email.errors?.required">Email Address is a required field</mat-error>
+      <mat-error *ngIf="accountForm.controls.email.errors?.email">It is not a valid email address</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Enter your password</mat-label>
       <input
-        matInput
-        [type]="hide ? 'password' : 'text'"
+        matInput #passInput
+        [type]="hidePassword ? 'password' : 'text'"
         formControlName="password">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
+      <a mat-icon-button matSuffix
+         (click)="hidePassword = !hidePassword"
+         [attr.aria-label]="'Hide password'"
+         [attr.aria-pressed]="hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </a>
+      <mat-hint align="end">Minimun characters 6 / Current {{passInput.value?.length || 0}}</mat-hint>
+      <mat-error *ngIf="accountForm.controls.password.errors?.required">Password is required field</mat-error>
+      <mat-error *ngIf="accountForm.controls.password.errors?.minlength">Password should contain at least 6 characters</mat-error>
     </mat-form-field>
 
     <button
@@ -27,10 +44,14 @@
       color="primary">Register</button>
 
     <button
-    *ngIf="isLoginOperation"
+      *ngIf="isLoginOperation"
       type="submit"
       mat-raised-button
       color="primary">Log in</button>
+
+    <mat-label *ngIf="loginErrorMessage" class="login-error-message">
+      {{loginErrorMessage}}
+    </mat-label>
 
     <mat-label *ngIf="isLoginOperation">Don't you have an account?
       <a class="login-component-links" (click)="changeOperation()">Register</a>

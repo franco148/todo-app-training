@@ -1,0 +1,24 @@
+mat-nav-list {
+  padding-top: 30px;
+  padding-left: 10px;
+  background-color: #333333;
+  height: 100%;
+}
+
+mat-icon {
+  font-size: 30px;
+}
+
+mat-divider {
+  background-color: gray;
+  border-top-width: 2px;
+}
+
+.nav-caption {
+  display: inline-block;
+  padding-left: 6px;
+  font-size: 20px;
+  /* font-weight: bold; */
+  color: #ababab;
+  padding-left: 25px;
+}

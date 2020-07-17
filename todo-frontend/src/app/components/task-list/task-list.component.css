@@ -1,0 +1,32 @@
+.main-empty-task-list-panel {
+  margin-top: 10rem;
+  font-weight: bold;
+  font-size: 3rem;
+  color: thistle;
+}
+
+button {
+  /* top: 100%; */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+section {
+  height: 100%;
+  margin-top: 20px;
+}
+
+.task-section {
+  height: 30%;
+}
+
+.divider-label {
+  font-size: 1.3rem;
+  color: thistle;
+  /* font-weight: bold; */
+}
+
+mat-divider {
+  padding-bottom: 10px;
+}

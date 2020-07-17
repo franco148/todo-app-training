@@ -1,1 +1,16 @@
-<app-user-account></app-user-account>
+<!-- <app-toolbar></app-toolbar>
+<app-user-account></app-user-account> -->
+
+<div class="app-main-container">
+  <app-toolbar (sidenavToggle)="sidenav.toggle()"></app-toolbar>
+
+  <mat-drawer-container class="app-sidenav-container">
+    <mat-drawer #sidenav role="navigation" mode="side" opened="false" style="width: 215px;">
+      <app-sidenav></app-sidenav>
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

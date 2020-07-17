@@ -1,0 +1,14 @@
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.toolbar-menu-button {
+  font-size: 1.5rem;
+  /* margin-right: 1.2rem; */
+  border: 1px solid;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}

@@ -1,0 +1,37 @@
+<app-task-item-creator *ngIf="showAddTaskComponent"></app-task-item-creator>
+
+<div *ngIf="showMainDefaultEmptyPanel" class="main-empty-task-list-panel" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="60px">
+  <mat-label>NO</mat-label>
+  <mat-label>TASKS PLANNED</mat-label>
+  <mat-label>TODAY</mat-label>
+</div>
+
+<section fxLayout="column" fxLayoutGap="15px">
+  <!-- In progress tasks -->
+  <div fxLayout="column" fxLayoutGap="2px" *ngIf="inProgressTasksList.length > 0" class="task-section">
+    <mat-label class="divider-label" fxLayoutAlign="center">In Progress</mat-label>
+    <mat-divider></mat-divider>
+    <app-task-list-item *ngFor="let inProgressItem of inProgressTasksList" [taskItem]="inProgressItem"></app-task-list-item>
+  </div>
+  <!-- Planned tasks -->
+  <div fxLayout="column" fxLayoutGap="2px" *ngIf="plannedPausedTasksList.length > 0" class="task-section">
+    <mat-label class="divider-label" fxLayoutAlign="center">Planned and Paused</mat-label>
+    <mat-divider></mat-divider>
+    <app-task-list-item *ngFor="let plannedItem of plannedPausedTasksList" [taskItem]="plannedItem"></app-task-list-item>
+  </div>
+  <!-- Cancelled and completed tasks -->
+  <div fxLayout="column" fxLayoutGap="2px" *ngIf="completedCancelledTasksList.length > 0" class="task-section">
+    <mat-label class="divider-label" fxLayoutAlign="center">Completed and Cancelled</mat-label>
+    <mat-divider></mat-divider>
+    <app-task-list-item *ngFor="let ccItem of completedCancelledTasksList" [taskItem]="ccItem"></app-task-list-item>
+  </div>
+</section>
+
+<button *ngIf="!showAddTaskComponent" mat-stroked-button color="primary" (click)="onEnableAddTaskComponent(true)">
+  <mat-icon>add</mat-icon> Add your task
+</button>
+
+<button *ngIf="showAddTaskComponent" mat-stroked-button color="warn" (click)="onEnableAddTaskComponent(false)">
+  <mat-icon>close</mat-icon> Cancel task
+</button>
+
