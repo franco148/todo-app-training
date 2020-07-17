@@ -45,7 +45,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.cleanComponent();
+    // this.cleanComponent();
   }
 
   changeOperation() {

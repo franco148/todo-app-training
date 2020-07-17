@@ -37,6 +37,7 @@ export class UserService {
       localStorage.setItem('todo-auth-token', authResponse.token);
       localStorage.setItem('todo-auth-user', JSON.stringify(authResponse.user));
 
+      this.redirectEvent(authResponse.user, '');
     },
     authError => {
       // console.log('An error ocurred in Login process ', authError);

@@ -19,3 +19,9 @@ mat-form-field {
 img {
   width: 200px;
 }
+
+.login-error-message {
+  /* width: 300px; */
+  color: red;
+  font: bold;
+}
