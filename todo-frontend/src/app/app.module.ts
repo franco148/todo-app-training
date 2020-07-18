@@ -30,6 +30,7 @@ import { TaskItemEditComponent } from './components/task-list/task-item-edit/tas
 import { TaskItemOptionsComponent } from './components/task-list/task-item-options/task-item-options.component';
 import { TaskListItemComponent } from './components/task-list/task-list-item/task-list-item.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -65,11 +66,11 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     NgxMaterialTimepickerModule
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptorService,
-    //   multi: true
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

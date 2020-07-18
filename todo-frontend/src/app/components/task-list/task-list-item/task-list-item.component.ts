@@ -50,7 +50,7 @@ export class TaskListItemComponent implements OnInit {
   getItemPriority() {
     let priorityColor: string;
 
-    switch (this.taskItem.priority) {
+    switch (this.taskItem?.priority) {
       case Priority.HIGH:
         priorityColor = 'red';
         break;

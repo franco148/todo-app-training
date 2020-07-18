@@ -11,9 +11,9 @@
   </button> -->
   <mat-icon class="icon-task-options" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
   <mat-menu #optionsMenu="matMenu">
-    <app-task-item-options [taskId]="taskItem.id" [currentState]="taskItem.state"></app-task-item-options>
+    <app-task-item-options [taskId]="taskItem?.id" [currentState]="taskItem?.state"></app-task-item-options>
   </mat-menu>
   <mat-icon [style.color]="getItemPriority()">label</mat-icon>
-  <label>{{taskItem.title}}</label>
+  <label>{{taskItem?.title}}</label>
   <mat-icon class="btn-details" (click)="addTaskFullInformation()">arrow_drop_down</mat-icon>
 </section>

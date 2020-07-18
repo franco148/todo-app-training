@@ -41,13 +41,15 @@
       *ngIf="!isLoginOperation"
       type="submit"
       mat-raised-button
-      color="primary">Register</button>
+      color="primary"
+      [disabled]="accountForm.invalid">Register</button>
 
     <button
       *ngIf="isLoginOperation"
       type="submit"
       mat-raised-button
-      color="primary">Log in</button>
+      color="primary"
+      [disabled]="accountForm.invalid">Log in</button>
 
     <mat-label *ngIf="loginErrorMessage" class="login-error-message">
       {{loginErrorMessage}}

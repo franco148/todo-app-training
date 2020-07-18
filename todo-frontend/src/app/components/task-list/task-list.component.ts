@@ -35,20 +35,24 @@ export class TaskListComponent implements OnInit {
     });
 
     // Getting today's tasks if exist
-    this.taskService.getTodaysUserTasks(this.userService.getLoggedUser().id)
-    .subscribe(todaysTasks => {
-      for (const task of todaysTasks) {
-        const taskOperation: TaskChange = {
-          operation: TaskOperation.SAVED,
-          prevState: State.PLANNED,
-          task: task
-        };
-        this.addOrMoveTask(taskOperation);
-      }
+    if (this.userService.getLoggedUser()) {
+      this.taskService.getTodaysUserTasks(this.userService.getLoggedUser().id)
+      .subscribe(todaysTasks => {
+        if (todaysTasks) {
+          for (const task of todaysTasks) {
+            const taskOperation: TaskChange = {
+              operation: TaskOperation.SAVED,
+              prevState: State.PLANNED,
+              task: task
+            };
+            this.addOrMoveTask(taskOperation);
+          }
+        }
 
-      // verifying if there are planned tasks for today
-      this.showMainDefaultEmptyPanel = !this.anyTaskPlannedForToday();
-    });
+        // verifying if there are planned tasks for today
+        this.showMainDefaultEmptyPanel = !this.anyTaskPlannedForToday();
+      });
+    }
   }
 
 
