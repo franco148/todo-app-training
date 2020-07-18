@@ -40,6 +40,27 @@ public class TaskRestController {
 	}
 	
 
+	/**
+	 * SOLID
+	 * 
+	 * S = SINGLE RESPONSABILITY
+	 * O = OPEN CLOSE PRINCIPLE
+	 * L = LISKOV SUBSTITUI
+	 * I = INTERFACE SEGRA
+	 * D = DEPENDY INJECTION
+	 * 
+	 * class WebInformationPrinter {
+	 * 	downloadInfoFromInternet() {}
+	 * 	printDownloadedInformation() {}
+	 * }
+	 * 
+	 * 1. WebInfoDownloader implements Printable { lookForInformation() {}, selectImportantInfo() {} dowanlodInfo() {}}
+	 * 2. PrinterInformation { print (Printable info) {} }
+	 * 
+	 * @param taskId
+	 * @param taskState
+	 * @return
+	 */
 	// http://localhost:8080/tasks/{taskId}?state={newTaskState}
 	@PatchMapping("/{taskId}")
 	public ResponseEntity<?> changeTaskState(
